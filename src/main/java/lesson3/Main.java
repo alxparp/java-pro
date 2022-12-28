@@ -18,27 +18,7 @@ public class Main {
         Animal dog5 = new Dog("Собака5");
         Animal dog6 = new Dog("Собака6");
 
-        List<Animal> listCats = new ArrayList<>();
-        listCats.add(cat1);
-        listCats.add(cat2);
-        listCats.add(cat3);
-        listCats.add(cat4);
-
-        List<Animal> listDogs = new ArrayList<>();
-        listDogs.add(dog1);
-        listDogs.add(dog2);
-        listDogs.add(dog3);
-        listDogs.add(dog4);
-        listDogs.add(dog5);
-        listDogs.add(dog6);
-
-        List<Animal> listAnimals = new ArrayList<>();
-        listAnimals.addAll(listCats);
-        listAnimals.addAll(listDogs);
-
-        System.out.println("Створено " + listCats.size() + " котів");
-        System.out.println("Створено " + listDogs.size() + " собак");
-        System.out.println("Всього створено " + listAnimals.size() + " тварин");
+        System.out.println(Animal.getCountAnimal());
 
     }
 
