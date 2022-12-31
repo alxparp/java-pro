@@ -1,3 +1,5 @@
+package lesson2;
+
 public class Car {
 
     public void start() {
