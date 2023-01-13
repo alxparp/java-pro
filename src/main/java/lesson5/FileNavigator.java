@@ -34,7 +34,7 @@ public class FileNavigator {
         return new ArrayList<>();
     }
 
-    public List<FileData> filterBySize(byte size) {
+    public List<FileData> filterBySize(int size) {
         List<FileData> returnedList = new ArrayList<>();
         if (size <= 0) return returnedList;
         for (FileData fileData: sortBySize()) {

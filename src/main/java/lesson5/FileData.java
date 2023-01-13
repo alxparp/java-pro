@@ -3,10 +3,10 @@ package lesson5;
 public class FileData implements Comparable<FileData> {
 
     private String name;
-    private byte size;
+    private int size;
     private String path;
 
-    public FileData(String name, byte size, String path) {
+    public FileData(String name, int size, String path) {
         this.name = name;
         this.size = size;
         this.path = path;
@@ -54,7 +54,7 @@ public class FileData implements Comparable<FileData> {
         this.name = name;
     }
 
-    public byte getSize() {
+    public int getSize() {
         return size;
     }
 
