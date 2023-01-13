@@ -27,7 +27,7 @@ public class FileData implements Comparable<FileData> {
     @Override
     public int hashCode() {
         int result = name.hashCode();
-        result = 31 * result + (int) size;
+        result = 31 * result + size;
         result = 31 * result + path.hashCode();
         return result;
     }
