@@ -6,25 +6,23 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Parser {
+public class BookParser {
 
     private File book;
     private List<String> words;
     private static final String bookAbsentMessage = "Book \"%s\" doesn't exist";
+    private static final String bookPattern = "[^a-zA-Z]";
 
-    public Parser(File book) throws IOException {
+    public BookParser(File book) throws IOException {
         this.book = book;
-        this.words = getAllWordsFromBook();
+        this.words = words();
     }
 
-    private List<String> getAllWordsFromBook() throws IOException {
+    private List<String> words() throws IOException {
         try(BufferedReader text = new BufferedReader(new FileReader(book))) {
             return text.lines()
-                    .map(line -> line.split(" "))
-                    .flatMap(Arrays::stream)
-                    .map(word -> word.trim().toLowerCase().replaceAll("[^a-zA-ZА-Яа-я\\-_]",""))
-                    .filter(word -> !word.equals("-"))
-                    .filter(word -> !word.equals("_"))
+                    .flatMap(line -> Arrays.stream(line.split(" ")))
+                    .map(this::processWord)
                     .filter(word -> !word.equals(""))
                     .toList();
         } catch (FileNotFoundException ex) {
@@ -32,7 +30,13 @@ public class Parser {
         }
     }
 
-    public List<String> get10MostPopularWordsWithCountOfCharsMoreThan2() {
+    private String processWord(String word) {
+        return word.trim()
+                .toLowerCase()
+                .replaceAll(bookPattern, "");
+    }
+
+    public List<String> topWords() {
         return words.stream()
                 .filter(word -> word.length() > 2)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
@@ -43,33 +47,33 @@ public class Parser {
                 .toList();
     }
 
-    public long getCountOfUniqueWords() {
+    public long uniqueWords() {
         return new HashSet<>(words).size();
     }
 
-    public void saveDataToFile() throws FileNotFoundException {
+    public void saveToFile() throws FileNotFoundException {
         try {
-            writeDataToCarrier(new PrintWriter(getStatisticsPath()));
+            writeToCarrier(new PrintWriter(statPath()));
         } catch (FileNotFoundException ex) {
             throw new FileNotFoundException(String.format(bookAbsentMessage, book.getName()));
         }
     }
 
-    public void saveDataToConsole() {
-        writeDataToCarrier(new PrintWriter(System.out, false, StandardCharsets.UTF_8));
+    public void saveToConsole() {
+        writeToCarrier(new PrintWriter(System.out, false, StandardCharsets.UTF_8));
     }
 
-    private void writeDataToCarrier(PrintWriter wordsWriter) {
+    private void writeToCarrier(PrintWriter wordsWriter) {
         try(wordsWriter) {
-            for (String word: get10MostPopularWordsWithCountOfCharsMoreThan2()) {
+            for (String word: topWords()) {
                 wordsWriter.write(word + " - " + word.length() + " chars\n");
             }
-            wordsWriter.write("Count of unique words: " + getCountOfUniqueWords());
+            wordsWriter.write("Count of unique words: " + uniqueWords());
             wordsWriter.flush();
         }
     }
 
-    private String getStatisticsPath() {
+    private String statPath() {
         String[] tokens = book.getName().split("\\.");
         String newFileName = tokens[tokens.length-2] + "_statistics." + tokens[tokens.length-1];
         return book.getParent() + "\\" + newFileName;
