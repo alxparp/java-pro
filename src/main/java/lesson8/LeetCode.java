@@ -8,14 +8,11 @@ public class LeetCode {
 
     public boolean isPalindrome(String phrase) {
         phrase = phrase.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-        int phraseLength = phrase.length();
-        int halfPhraseLength = (int)Math.floor(phraseLength >> 1);
 
-        for (int i=0; i<halfPhraseLength; i++) {
-            if (phrase.charAt(i) != phrase.charAt(phraseLength-i-1))
+        for (int i=0, j=phrase.length()-1; i < j; i++, j--) {
+            if (phrase.charAt(i) != phrase.charAt(j))
                 return false;
         }
-
         return true;
     }
 
