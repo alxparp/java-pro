@@ -1,5 +1,7 @@
 package lesson9;
 
+import lombok.Cleanup;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -21,7 +23,7 @@ public class Client {
              PrintWriter out = new PrintWriter(
                      new OutputStreamWriter(localhost.getOutputStream(), encoding),true)) {
 
-            Scanner console = new Scanner(System.in);
+            @Cleanup Scanner console = new Scanner(System.in);
 
             while (true) {
                 try {
