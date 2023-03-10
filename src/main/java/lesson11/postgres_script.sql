@@ -35,7 +35,7 @@ ALTER TABLE IF EXISTS public.wallet
 INSERT INTO public.user(user_id, name, surname , date_of_registration)
 VALUES (1, 'Alex', 'Parpalak', now()),
        (2, 'Alex', 'Shaitan', now()),
-       (3, 'Viktor', 'Gevod', now());
+       (3, 'Victor', 'Hevod', now());
 
 INSERT INTO public.wallet(wallet_id, currency, amount, user_id, created)
 VALUES (1, 'EUR', 3000, 1, now()),
