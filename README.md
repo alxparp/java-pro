@@ -230,8 +230,6 @@ https://leetcode.com/problems/reverse-linked-list/
 
 ## SQL - [PAV_11](https://github.com/alxparp/java-pro/tree/PAV_11)
 
-SQL - PAV_11
-
 1. You need to write a SQL script that can create tables with such parameters
 
 name: wallet
